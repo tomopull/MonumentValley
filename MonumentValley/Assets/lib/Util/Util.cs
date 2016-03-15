@@ -19,18 +19,19 @@ static public class Util  {
 //		public string IMAGE = "image_component";
 //	}
 
-	static public void Shuffle (int[] deck) {
-		for (int i = 0; i < deck.Length; i++) {
-			int temp = deck[i];
-			int randomIndex = UnityEngine.Random.Range(0, deck.Length);
-			deck[i] = deck[randomIndex];
-			deck[randomIndex] = temp;
-		}
-	}
+//	static public void Shuffle (int[] deck) {
+//		for (int i = 0; i < deck.Length; i++) {
+//			int temp = deck[i];
+//			int randomIndex = UnityEngine.Random.Range(0, deck.Length);
+//			deck[i] = deck[randomIndex];
+//			deck[randomIndex] = temp;
+//		}
+//	}
 
 	static public void Shuffle (JsonData data ) {
 		for (int i = 0; i < data["object_data"].Count; i++) {
 			JsonData temp = data["object_data"][i];
+			Debug.Log(temp);
 			int randomIndex = UnityEngine.Random.Range(0, data["object_data"].Count);
 			data["object_data"][i] = data["object_data"][randomIndex];
 			data["object_data"][randomIndex] = temp;
@@ -43,11 +44,11 @@ static public class Util  {
 
 		string base_url = "";
 
-		if (Application.platform == RuntimePlatform.OSXEditor) {
+		if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor) {
 			//OSX Editor
 			base_url = "file://" + Application.dataPath + "/StreamingAssets";
 
-		} else if (Application.platform == RuntimePlatform.OSXPlayer) {
+		} else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.WindowsPlayer) {
 			//PC Mac & linux StandAlone
 			base_url = "file://" + Application.dataPath + "/StreamingAssets";
 
@@ -55,12 +56,12 @@ static public class Util  {
 			//Iphone
 			base_url = "file://" + Application.dataPath + "/Raw";
 
-		} else if(Application.platform == RuntimePlatform.OSXWebPlayer){
+		} else if(Application.platform == RuntimePlatform.OSXWebPlayer || Application.platform == RuntimePlatform.WindowsWebPlayer){
 			//Web Player
 			//絶対パス
 			base_url = Application.dataPath;
 		}
-
+		
 		return base_url;
 	}
 		
