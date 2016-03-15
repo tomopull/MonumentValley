@@ -1,0 +1,14 @@
+monument valley memo
+
+[scene]
+TopScene: more,rule,start　ゲームスタート、ルール、モアー
+
+SelectStageScene: ステージセレクトシーン
+
+MainScene: ゲームプレイシーン
+
+[point]
+カメラの位置決め
+ますの上を歩かせる。
+
+

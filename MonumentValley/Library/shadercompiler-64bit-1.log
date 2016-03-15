@@ -1,7 +1,3 @@
 Base path: /Applications/Unity5.2.1f1/UnityUnity5.2.1f1.app/Contents
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-2098061312
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-2026684416
 Cmd: getPlatforms
-Cmd: compileSnippet
-  api=0 type=0 insize=13030 outsize=6315 kw=UNITY_COLORSPACE_GAMMA _SUNDISK_SIMPLE pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=13030 outsize=6 kw=UNITY_COLORSPACE_GAMMA _SUNDISK_SIMPLE pd= ok=1
