@@ -31,7 +31,6 @@ static public class Util  {
 	static public void Shuffle (JsonData data ) {
 		for (int i = 0; i < data["object_data"].Count; i++) {
 			JsonData temp = data["object_data"][i];
-			Debug.Log(temp);
 			int randomIndex = UnityEngine.Random.Range(0, data["object_data"].Count);
 			data["object_data"][i] = data["object_data"][randomIndex];
 			data["object_data"][randomIndex] = temp;
@@ -48,7 +47,7 @@ static public class Util  {
 			//OSX Editor
 			base_url = "file://" + Application.dataPath + "/StreamingAssets";
 
-		} else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.WindowsPlayer) {
+		} else if (Application.platform == RuntimePlatform.OSXPlayer) {
 			//PC Mac & linux StandAlone
 			base_url = "file://" + Application.dataPath + "/StreamingAssets";
 
@@ -56,12 +55,12 @@ static public class Util  {
 			//Iphone
 			base_url = "file://" + Application.dataPath + "/Raw";
 
-		} else if(Application.platform == RuntimePlatform.OSXWebPlayer || Application.platform == RuntimePlatform.WindowsWebPlayer){
+		} else if(Application.platform == RuntimePlatform.OSXWebPlayer){
 			//Web Player
 			//絶対パス
 			base_url = Application.dataPath;
 		}
-		
+
 		return base_url;
 	}
 		
