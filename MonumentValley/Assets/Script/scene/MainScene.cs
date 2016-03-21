@@ -46,56 +46,14 @@ public class MainScene : MonoBehaviour {
 	//state  set default state
 	private GameModel.GameState _game_state;
 
-	//base url text
-	private Text _base_url_text;
-
-	//url text
-	private Text _url_text;
-
-	//point text
-	private Text _point_text;
-
-	//obj count text;
-	private Text _obj_count_text;
-
-	//total point text
-	private Text _total_point_text;
-
-	//Highest_Total_Point_Text
-	private Text _highest_total_point_text;
-
-	//highscore update text
-	private Text _highscore_update_text;
-
-	//not highscore update text;
-	private Text _not_highscore_update_text;
-
-	private Text _highest_score_text;
-
-	private Text _total_score_text;
-
-	//retry button
-	private Button _retry_button;
-
-	//back to top button
-	private Button _back_to_top_button;
-
-	//reset button
-	private Button _reset_button;
-
-	//shake button
-	private Button _shake_button;
+	//Asset Bundle manager
+	private AssetBundleManager _asset_bundle_manager;
 
 	//UI Event Handler
 	private UIEventHandler _ui_event_handler;
 
-	//Asset Bundle manager
-	private AssetBundleManager _asset_bundle_manager;
 
 	private Canvas _canvas_game_info;
-
-
-	private GameObject _result_bg;
 
 
 	private Timer _timer;
@@ -139,11 +97,12 @@ public class MainScene : MonoBehaviour {
 
 		_game_model.ParticleDataList = new List<List<GameObject>> ();
 		_game_model.Init ();
+
 	}
 
 	//初期化
 	private void Init(){
-		LoadFile ();
+		//LoadFile ();
 	}
 		
 
@@ -159,10 +118,6 @@ public class MainScene : MonoBehaviour {
 		WWW file = new WWW (_file_path);
 
 		yield return file;
-
-		//test
-		//yield return StartCoroutine (_asset_bundle_manager.LoadAssetBundleCoroutine ());
-		//_image.sprite = _asset_bundle_manager.GetSpriteFromAssetBundle ("maru");
 
 		JsonData data = LitJson.JsonMapper.ToObject(file.text);
 
@@ -180,9 +135,6 @@ public class MainScene : MonoBehaviour {
 		//キャンバスをメインぺージ用の表示にする
 		GotoMainPage ();
 
-		//プラットフォーム表示
-		Util.UpdateTextStringUtil (_base_url_text, Util.GetBaseURL ().ToString ()); //base url
-		Util.UpdateTextStringUtil (_url_text,_game_model.Json_Path.ToString()); //url text
 	}
 
 	private  void InitCanvasInfo(){
@@ -198,29 +150,6 @@ public class MainScene : MonoBehaviour {
 		_game_state.GAME_IDLE_STATE = "game_idle_state";
 
 		SetGameState (_game_state.GAME_PLAY_STATE);
-
-		_base_url_text = Util.FindTextComponentUtil ("/CanvasGameInfo/BaseURL_Text");
-		_url_text = Util.FindTextComponentUtil ("/CanvasGameInfo/URL_Text");
-		_point_text = Util.FindTextComponentUtil ("/CanvasGameInfo/Point_Text");
-		_obj_count_text = Util.FindTextComponentUtil ("/CanvasGameInfo/Count_Text");
-
-		//result of the game
-		_total_point_text = Util.FindTextComponentUtil ("/CanvasGameInfo/ResultMenu/Total_Point_Text");
-		_highest_total_point_text = Util.FindTextComponentUtil ("/CanvasGameInfo/ResultMenu/Highest_Total_Point_Text");
-		_highscore_update_text = Util.FindTextComponentUtil ("/CanvasGameInfo/ResultMenu/Highest_Score_Update_Text");
-		_not_highscore_update_text = Util.FindTextComponentUtil ("/CanvasGameInfo/ResultMenu/None_Highest_Score_Update_Text");
-		_highest_score_text = Util.FindTextComponentUtil ("/CanvasGameInfo/ResultMenu/Highest_Score_Text");
-		_total_score_text = Util.FindTextComponentUtil ("/CanvasGameInfo/ResultMenu/Total_Score_Text");
-
-		_retry_button = Util.FindButtonComponentUtil ("/CanvasGameInfo/ResultMenu/UIRetryButton");
-		_back_to_top_button = Util.FindButtonComponentUtil ("/CanvasGameInfo/ResultMenu/UIBackToToTopButton");
-		_reset_button = Util.FindButtonComponentUtil ("/CanvasGameInfo/ResultMenu/UIRestButton");
-		_shake_button = Util.FindButtonComponentUtil ("/CanvasGameInfo/UIShakeButton");
-
-		_result_bg = Util.FindGameObjectUtil ("CanvasGameInfo/ResultMenu/ResultBG");
-	        
-		Util.SetButtonEvent (_reset_button.gameObject,ResetPlayerPref, EventTriggerType.PointerClick);
-		Util.SetButtonEvent (_shake_button.gameObject, ShakeDiplay, EventTriggerType.PointerClick);
 
 	}
 
@@ -265,101 +194,8 @@ public class MainScene : MonoBehaviour {
 	/// </summary>
 	private void GotoMainPage(){
 
-		Util.SetActivationOfGameObject (_base_url_text.gameObject, true);
-		Util.SetActivationOfGameObject (_url_text.gameObject, true);
-		Util.SetActivationOfGameObject (_point_text.gameObject, true);
-		Util.SetActivationOfGameObject (_obj_count_text.gameObject, true);
-
-		Util.SetActivationOfGameObject (_total_point_text.gameObject, false);
-		Util.SetActivationOfGameObject (_highest_total_point_text.gameObject, false);
-		Util.SetActivationOfGameObject (_highscore_update_text.gameObject, false);
-		Util.SetActivationOfGameObject (_not_highscore_update_text.gameObject, false);
-		Util.SetActivationOfGameObject (_highest_score_text.gameObject, false);
-		Util.SetActivationOfGameObject (_total_score_text.gameObject, false);
-		Util.SetActivationOfGameObject (_retry_button.gameObject, false);
-		Util.SetActivationOfGameObject (_back_to_top_button.gameObject, false);
-
-		Util.SetActivationOfGameObject (_reset_button.gameObject, false);
-		Util.SetActivationOfGameObject (_result_bg.gameObject, false);
 	}
-
-	/// <summary>
-	/// canvas display the end of playing the game
-	/// </summary>
-	private void GotoResultPage(){
-
-		if (_game_model.NowState == _game_state.GAME_END_STATE) {
-
-			Util.SetActivationOfGameObject (_base_url_text.gameObject, false);
-			Util.SetActivationOfGameObject (_url_text.gameObject, false);
-			Util.SetActivationOfGameObject (_point_text.gameObject, false);
-			Util.SetActivationOfGameObject (_obj_count_text.gameObject, false);
-			Util.SetActivationOfGameObject (_total_point_text.gameObject, true);
-			Util.SetActivationOfGameObject (_total_score_text.gameObject, true);
-
-			Util.SetActivationOfGameObject (_retry_button.gameObject, true);
-			Util.SetActivationOfGameObject (_back_to_top_button.gameObject, true);
-			Util.SetActivationOfGameObject (_reset_button.gameObject, true);
-			Util.SetActivationOfGameObject (_shake_button.gameObject, false);
-			Util.SetActivationOfGameObject (_result_bg.gameObject, true);
-
-			Util.SetButtonEvent (_retry_button.gameObject, GotoReTryPage, EventTriggerType.PointerClick);
-			Util.SetButtonEvent(_back_to_top_button.gameObject,GotoBackToTopPage,EventTriggerType.PointerClick);
-
-			//show now total and past highest point and save data
-			int _high_score = 0;
-
-			//今回のスコア
-			int _score = _game_model.TotalPoint;
-
-			if (PlayerPrefs.HasKey (GameModel.HIGH_SCORE_KEY)) {
-
-				//過去最高点表示
-				Util.SetActivationOfGameObject (_highest_score_text.gameObject, true);
-				Util.SetActivationOfGameObject (_highest_total_point_text.gameObject, true);
-
-				_high_score = PlayerPrefs.GetInt (GameModel.HIGH_SCORE_KEY);
-
-				//最高得点が存在しかつ更新していたら更新セーブ
-				if (_high_score < _score) {
-					PlayerPrefs.SetInt (GameModel.SCORE_KEY, _score);
-					PlayerPrefs.SetInt (GameModel.HIGH_SCORE_KEY, _score);
-					_total_point_text.color = Color.yellow;
-
-					//最高得点更新したので更新テキスト
-					Util.SetActivationOfGameObject (_highscore_update_text.gameObject, true);
-
-				} else {
-					//最高得点更新していない
-					PlayerPrefs.SetInt (GameModel.HIGH_SCORE_KEY, _high_score);
-					PlayerPrefs.SetInt (GameModel.SCORE_KEY, _high_score);
-					_total_point_text.color = Color.grey;
-
-					//最高得点更新してないので更新してないテキスト
-					Util.SetActivationOfGameObject (_not_highscore_update_text.gameObject, true);
-
-				}
-
-			} else {
-				//最高得点初期化
-				_high_score = _game_model.TotalPoint;
-				PlayerPrefs.SetInt (GameModel.SCORE_KEY, _score);
-				PlayerPrefs.SetInt (GameModel.HIGH_SCORE_KEY, _high_score);
-				_total_point_text.color = Color.yellow;
-
-				//最高得点更新したので更新テキスト
-				Util.SetActivationOfGameObject (_highscore_update_text.gameObject, true);
-
-			}
-
-			PlayerPrefs.Save ();
-
-			Util.UpdateTextStringUtil (_total_point_text, _score.ToString ());
-			Util.UpdateTextStringUtil (_highest_total_point_text, _high_score.ToString ());
-
-		}
-
-	}
+	
 
 
 	/// <summary>
@@ -447,8 +283,6 @@ public class MainScene : MonoBehaviour {
 				obj_data.Key = _key;
 				obj_data.Obj = obj;
 
-				//print (i + "_" + j + "_" + GameModel.GetUniqueIndex ());
-				_game_object_manager.SetColor (obj_data.Category, obj);
 
 			}
 
@@ -514,7 +348,6 @@ public class MainScene : MonoBehaviour {
 				if(_game_model.NowState ==  _game_state.GAME_PLAY_STATE ){
 					//show result display
 					SetGameState (_game_state.GAME_END_STATE);
-					GotoResultPage ();
 					SetGameState (_game_state.GAME_IDLE_STATE);
 				}
 			}
@@ -598,19 +431,9 @@ public class MainScene : MonoBehaviour {
 
 			SetLineObjectDataReverse ();
 
-			_game_object_manager.HighLightSelectedData (_game_model.SelectedObjectDataDict);
-			_game_object_manager.DrawLine (_game_model.SelectedObjectDataDict);
 
 		} else {
 
-			if(_game_model.SelectedObjectDataDict != null){
-
-				_game_object_manager.ResetHighLightSelectedData(_game_model.SelectedObjectDataDict);
-
-			}
-
-			_game_object_manager.ResetLineObjectData ();
-			_game_object_manager.DrawLine (_game_model.SelectedObjectDataDict);
 		}
 
 		//再生終了したパーティクルデータを削除
@@ -708,10 +531,7 @@ public class MainScene : MonoBehaviour {
 
 			if(now_distance_from_last_but_one_object_selected <= _game_model.TouchDistance && now_distance_from_last_object_selected >= _game_model.TouchDistance){
 
-				//一番最後のオブジェクトをとりあえず元の色に戻す
-				_game_object_manager.SetColor (_game_model.LastObjectSelected.Category, _game_model.LastObjectSelected.Obj);
-				//一番最後のオブジェクトをハイライト前の大きさに戻す
-				Util.AnimateObjectScale(_game_model.LastObjectSelected.Obj,1f,1f,iTween.EaseType.linear,0f);
+
 
 				//一番最後のオブジェクトの参照の削除
 				_game_model.SelectedObjectDataDict.Remove (_game_model.LastObjectSelected.Key);
@@ -801,7 +621,7 @@ public class MainScene : MonoBehaviour {
 
 					}
 
-					StartCoroutine (RemoveingSelectedLineObjectsData(tmp_key,tmp_data,_wait_time));
+	
 
 				}
 					
@@ -816,63 +636,10 @@ public class MainScene : MonoBehaviour {
 	}
 
 
-	/// <summary>
-	/// remove ojects time after time
-	/// </summary>
-	/// <returns>The selected line objects data.</returns>
-
-	private IEnumerator RemoveingSelectedLineObjectsData(string _key, ObjectData _data, float _wait_time){
-
-		//Debug.Log (_wait_time);
-		yield return new WaitForSeconds (_wait_time);
-
-		//ゲットポイントのパーティクルのが発生する
-		GameObject _get_point_particle_obj = Util.InstantiateUtil (_game_model, "GetPointParticle", new Vector3 (_data.transform.position.x, _data.transform.position.y, _data.transform.position.z), Quaternion.identity);
-
-		//オブジェクトが消える時のパーティクルが発生する
-		GameObject _vanish_particle_obj = Util.InstantiateUtil (_game_model, "ParticleExplode", new Vector3 (_data.transform.position.x, _data.transform.position.y, _data.transform.position.z),Quaternion.identity);
-
-		//particle target
-		GameObject _target = Util.FindGameObjectUtil ("Stage/TargetObj");
-
-		RectTransform _canvas_rect = _canvas_game_info.GetComponent<RectTransform> ();
-	
-		Vector3 _target_pos = Camera.main.ViewportToWorldPoint (_point_text.transform.position);
-
-		iTween.MoveTo (_get_point_particle_obj,
-			iTween.Hash (
-				"position", _target.transform.position,
-				"easeType", iTween.EaseType.easeInCubic,"time", _delay_time_tween,
-				"oncomplete", "PointGetComplete",
-				"oncompletetarget", this.gameObject
-			));
-
-		_vanish_particle_obj.GetComponent<ParticleSystem> ().Play ();
-
-		//現在存在しているパーティクルの参照の保存
-		_particle_manager.AddParticleList (_vanish_particle_obj, _game_model.VanishParticleList);
-		_particle_manager.AddParticleList (_get_point_particle_obj, _game_model.GetPointParticleList);
-
-		//ゲームオブジェクトの削除
-		Destroy (_data.Obj);
-
-		//獲得ポイント追加
-		_canvas_object_manager.AddTotalPoint (_data.Point);
-
-		//獲得オブジェクト数の追加
-		_canvas_object_manager.AddTotalCount (1);
-
-		//元となる配列から参照の削除
-		_game_model.ObjectDataDict.Remove (_key);
-
-	}
 
 
 	public void PointGetComplete(){
-		//ポイント
-		Util.UpdateTextStringUtil (_point_text,_game_model.TotalPoint.ToString());
-		//オブジェクトカウント
-		Util.UpdateTextStringUtil (_obj_count_text, _game_model.TotalObjectCount.ToString());
+
 	}
 
 	//既に選択済みかそうでないか

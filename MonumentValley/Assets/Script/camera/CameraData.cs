@@ -20,8 +20,6 @@ public class CameraData : MonoBehaviour {
 	public  float       panSpeed            =   5f;
 	private float       heightRayLength     =   100f;
 	
-	private static CameraData instance = null;
-	
 	public  float       xDistance {
 		get {
 			return Mathf.Cos(Mathf.Deg2Rad * rotation) * zoom * stdDistance;
@@ -98,28 +96,6 @@ public class CameraData : MonoBehaviour {
 		
 		//No hit? What the hell happened?! Throw an exception!
 		throw new UnityException("Camera could not find any ground beneath it.");
-	}
-
-	public static CameraData Instance {
-		get {	
-			return CameraData.instance;	
-		}
-	}
-	
-	void Awake()
-	{
-		if( instance == null)
-			
-		{
-			
-			instance = this;
-			
-		}else{
-			
-			Destroy( this );
-			
-		}
-		
 	}
 	
 }
