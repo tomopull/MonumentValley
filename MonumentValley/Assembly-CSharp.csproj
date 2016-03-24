@@ -137,6 +137,7 @@
      <Compile Include="Assets\Script\manager\CanvasObjectManager.cs" />
      <Compile Include="Assets\Script\manager\GameObjectManager.cs" />
      <Compile Include="Assets\Script\manager\ParticleManager.cs" />
+     <Compile Include="Assets\Script\manager\StageManager.cs" />
      <Compile Include="Assets\Script\manager\UIManager.cs" />
      <Compile Include="Assets\Script\model\GameModel.cs" />
      <Compile Include="Assets\Script\model\TopSceneModel.cs" />
@@ -163,8 +164,8 @@
      <Compile Include="Assets\lib\LitJson\JsonWriter.cs" />
      <Compile Include="Assets\lib\LitJson\Lexer.cs" />
      <Compile Include="Assets\lib\LitJson\ParserToken.cs" />
-     <Compile Include="Assets\lib\Timer\Delegate.cs" />
-     <Compile Include="Assets\lib\Timer\Timer.cs" />
+     <Compile Include="Assets\lib\LitJson\Timer\Delegate.cs" />
+     <Compile Include="Assets\lib\LitJson\Timer\Timer.cs" />
      <Compile Include="Assets\lib\UnityChan\Scripts\AutoBlink.cs" />
      <Compile Include="Assets\lib\UnityChan\Scripts\AutoBlinkforSD.cs" />
      <Compile Include="Assets\lib\UnityChan\Scripts\CameraController.cs" />

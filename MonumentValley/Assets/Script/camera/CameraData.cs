@@ -8,8 +8,8 @@ public class CameraData : MonoBehaviour {
 	
 	public  float       zoom                =   1f;
 	public  float       stdDistance         =   40f;
-	public  float       minZoom             =   2f;
-	public  float       maxZoom             =   .75f;
+	public  float       minZoom             =   .55f;
+	public  float       maxZoom             =   .55f;
 	public  float       rotation            =   -90f;
 	public  float       panBuffer           =   .1f;
 	private int         _panBufferLeft;
