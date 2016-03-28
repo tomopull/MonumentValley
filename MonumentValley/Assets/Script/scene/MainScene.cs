@@ -41,7 +41,11 @@ public class MainScene : MonoBehaviour {
 	private Canvas _canvas_game_info;
 
 
+	//Hero
+	private GameObject _hero;
+
 	private Timer _timer;
+
 	private bool time_up = false;
 
 	// Use this for initialization
@@ -103,10 +107,22 @@ public class MainScene : MonoBehaviour {
 		_game_model.OriginalJsonData = data;
 
 		//CreateStage
-		_stage_manager.CreateStage();
-	
+		//_stage_manager.CreateStage();
+
+		//InitHero
+		InitCharacter();
+
+		//InitCanvasInfo
+		InitCanvasInfo();
+
 	}
 
+	/// <summary>
+	/// Inits the character.
+	/// </summary>
+	private void InitCharacter(){
+		_hero = GameObject.Find("Hero");
+	}
 
 	private  void InitCanvasInfo(){
 	
@@ -125,9 +141,7 @@ public class MainScene : MonoBehaviour {
 	/// init data
 	/// </summary>
 	private void ResetPlayerPref(BaseEventData _base_event_data){
-
 		PlayerPrefs.DeleteAll ();
-
 	}
 
 
@@ -135,23 +149,30 @@ public class MainScene : MonoBehaviour {
 	private void SetGameState(string str){
 		_game_model.NowState = str;
 	}
-
 	
+
 	// Update is called once per frame
 	void Update () {
 
 		if(Application.isEditor){
 			if (Input.GetMouseButton (0)) {
+
 				if (ActiveTouch.Phase == TouchPhase.Canceled) {
+
 					ActiveTouch.CurrentTouchLocation = Input.mousePosition;
 					ActiveTouch.StartTouchLocation = Input.mousePosition;
 					ActiveTouch.StartTime = System.DateTime.Now;
 					ActiveTouch.Phase = TouchPhase.Began;
 					_game_model.IsButtonDown = true;
+
 				} else {
+
 					ActiveTouch.CurrentTouchLocation = Input.mousePosition;
+
 				}
+
 			} else {
+
 				if (ActiveTouch.Phase == TouchPhase.Began) {
 
 					CaluculateTouchInput (ActiveTouch);
@@ -159,6 +180,7 @@ public class MainScene : MonoBehaviour {
 					_game_model.IsButtonDown = false;
 
 				}
+
 			}
 
 		}else{
@@ -176,7 +198,9 @@ public class MainScene : MonoBehaviour {
 					_game_model.IsButtonDown = true;
 
 				} else {
+
 					ActiveTouch.CurrentTouchLocation = _game_model.DeviceTouch.position;
+
 				}
 
 			} else {
@@ -191,9 +215,14 @@ public class MainScene : MonoBehaviour {
 		}
 
 		//ゲームプレイ時間中にボタンをダウンしていたら、していなかったら
-		if (_game_model.IsButtonDown && _game_model.NowState == _game_state.GAME_PLAY_STATE) {
+		if (_game_model.NowState == _game_state.GAME_PLAY_STATE) {
+
+			//Debug.Log("press button while playing");
+			_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
 
 		} else {
+			//do nothing
+			//Debug.Log("press button while not playing");
 
 		}
 
@@ -201,9 +230,6 @@ public class MainScene : MonoBehaviour {
 		if(_particle_manager != null)_particle_manager.RemoveParticleData ();
 
 	}
-
-
-
 
 }
 
