@@ -18,6 +18,8 @@ public class CameraData : MonoBehaviour {
 	private int         _panBufferTop;
 	public  int         panDistance         =   5;
 	public  float       panSpeed            =   5f;
+	//public  float       panSpeed            =   0f;
+		
 	private float       heightRayLength     =   100f;
 	
 	public  float       xDistance {
