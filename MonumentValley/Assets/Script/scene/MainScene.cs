@@ -215,7 +215,9 @@ public class MainScene : MonoBehaviour {
 		}
 
 		//ゲームプレイ時間中にボタンをダウンしていたら、していなかったら
-		if (_game_model.NowState == _game_state.GAME_PLAY_STATE) {
+		//if (Input.GetMouseButtonDown(0) &&  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
+		if (  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
+		
 
 			//Debug.Log("press button while playing");
 			_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
@@ -230,6 +232,9 @@ public class MainScene : MonoBehaviour {
 		if(_particle_manager != null)_particle_manager.RemoveParticleData ();
 
 	}
+
+
+
 
 }
 
