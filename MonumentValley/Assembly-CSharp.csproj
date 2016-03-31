@@ -127,6 +127,7 @@
      <Compile Include="Assets\00_External\Standard Assets\Utility\TimedObjectDestructor.cs" />
      <Compile Include="Assets\00_External\Standard Assets\Utility\WaypointCircuit.cs" />
      <Compile Include="Assets\00_External\Standard Assets\Utility\WaypointProgressTracker.cs" />
+     <Compile Include="Assets\Script\UnityChanDemo1.cs" />
      <Compile Include="Assets\Script\camera\CameraAdjustSelf.cs" />
      <Compile Include="Assets\Script\camera\CameraData.cs" />
      <Compile Include="Assets\Script\camera\CameraPan.cs" />

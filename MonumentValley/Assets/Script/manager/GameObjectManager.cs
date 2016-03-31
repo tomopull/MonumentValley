@@ -18,7 +18,6 @@ public class GameObjectManager : MonoBehaviour {
 	}
 
 	public void SetRotationAngleByTargetPosition(GameObject _char,Vector3 _vec_3){
-
 		//マウスポインターが何らかのEventSystem関連のUI用のGameObject上になかった場合
 		if(!EventSystem.current.IsPointerOverGameObject()){
 
