@@ -75,7 +75,10 @@ public class MainScene : MonoBehaviour {
 		_stage_manager = StageManager.Instance;
 		_asset_bundle_manager = AssetBundleManager.Instance;
 
-		_game_object_manager._game_model = _canvas_object_manager._game_model = _particle_manager._game_model = _stage_manager._game_model = _game_model;
+		_game_object_manager._game_model = _game_model;
+		_canvas_object_manager._game_model = _game_model;
+		_particle_manager._game_model = _game_model;
+		_stage_manager._game_model = _game_model;
 
 		_ui_event_handler = UIEventHandler.Instance;
 		_ui_event_handler.EntryDict = new Dictionary<string, EventTrigger.Entry> ();
@@ -107,13 +110,15 @@ public class MainScene : MonoBehaviour {
 		_game_model.OriginalJsonData = data;
 
 		//CreateStage
-		//_stage_manager.CreateStage();
+		_stage_manager.CreateStage();
 
 		//InitHero
 		InitCharacter();
 
 		//InitCanvasInfo
 		InitCanvasInfo();
+
+
 
 	}
 
@@ -229,7 +234,10 @@ public class MainScene : MonoBehaviour {
 		}
 
 		//再生終了したパーティクルデータを削除
-		if(_particle_manager != null)_particle_manager.RemoveParticleData ();
+		if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
+			//if(_particle_manager != null)_particle_manager.RemoveParticleData ();
+		}
+
 
 	}
 

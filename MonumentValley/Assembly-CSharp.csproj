@@ -51,12 +51,14 @@
      <Compile Include="Assets\Script\camera\CameraPan.cs" />
      <Compile Include="Assets\Script\camera\CameraRotate.cs" />
      <Compile Include="Assets\Script\camera\CameraZoom.cs" />
-     <Compile Include="Assets\Script\data\ObjectData.cs" />
+     <Compile Include="Assets\Script\data\DataObject.cs" />
+     <Compile Include="Assets\Script\data\TileDataObject.cs" />
      <Compile Include="Assets\Script\manager\AssetBundleManager.cs" />
      <Compile Include="Assets\Script\manager\CanvasObjectManager.cs" />
      <Compile Include="Assets\Script\manager\GameObjectManager.cs" />
      <Compile Include="Assets\Script\manager\ParticleManager.cs" />
      <Compile Include="Assets\Script\manager\StageManager.cs" />
+     <Compile Include="Assets\Script\manager\StageManagerOld.cs" />
      <Compile Include="Assets\Script\manager\UIManager.cs" />
      <Compile Include="Assets\Script\model\GameModel.cs" />
      <Compile Include="Assets\Script\model\TopSceneModel.cs" />

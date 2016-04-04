@@ -57,16 +57,7 @@ public class GameModel : MonoBehaviour {
 	    get { return this.game_time; } 
 	    set { this.game_time = value; }
 	}
-
-	//最低何個のオブジェクトをつなげたらラインが消えるか
-	[SerializeField]
-	private int line_num = 3;
-	public int LineNum
-	{
-	    get { return this.line_num; } 
-	    set { this.line_num = value; }
-	}
-
+	
 	//トータル得点
 	[SerializeField]
 	private int total_point = 0;
@@ -115,8 +106,8 @@ public class GameModel : MonoBehaviour {
 
 	//ゲームオブジェクトデータ
 	[SerializeField]
-	private Dictionary<string,ObjectData> object_data_dict;
-	public Dictionary<string,ObjectData> ObjectDataDict
+	private Dictionary<string,DataObject> object_data_dict;
+	public Dictionary<string,DataObject> ObjectDataDict
 	{
 		get { return this.object_data_dict;} 
 		set { this.object_data_dict = value;}
@@ -166,83 +157,7 @@ public class GameModel : MonoBehaviour {
 		get { return this.isButtonDown; } 
 		set { this.isButtonDown = value; }
 	}
-
-	//一番最初にタップしたオブジェクトの種類
-	//以後この種類のオブジェクトだったら線がつながる
-	[SerializeField]
-	private int first_object_selected_category;
-	public int FirstObjectSelectedCategory
-	{
-		get { return this.first_object_selected_category; } 
-		set { this.first_object_selected_category = value; }
-	}
-
-
-	//オブジェクトをタッチできる距離
-	[SerializeField]
-	private float touch_distance = 0.55f;
-	public float TouchDistance
-	{
-		get { return this.touch_distance; } 
-		set { this.touch_distance = value; }
-	}
-
-
-	//最後の一つ前に選択されたオブジェクト
-	[SerializeField]
-	private ObjectData last_but_one_object_selected;
-	public ObjectData LastButOneObjectSelected
-	{
-	    get { return this.last_but_one_object_selected; } 
-	    set { this.last_but_one_object_selected = value; }
-	}
-
-	//最後に選択されたオブジェクト
-	[SerializeField]
-	private ObjectData last_object_selected;
-	public ObjectData LastObjectSelected
-	{
-		get { return this.last_object_selected; } 
-		set { this.last_object_selected = value; }
-	}
-
-	//一番ポインターから近いデータ
-	[SerializeField]
-	private ObjectData nearest_obj;
-	public ObjectData NearestObj
-	{
-		get { return this.nearest_obj; } 
-		set { this.nearest_obj = value; }
-	}
-
-	//一番近いポインターとの距離
-	[SerializeField]
-	private float nearest_dist;
-	public float NearestDist
-	{
-		get { return this.NearestDist; } 
-		set { this.NearestDist = value; }
-	}
-
-	//線でつなげたマウスの位置から最も近い位置にあるオブジェクトのリスト
-	[SerializeField]
-	private Dictionary<string,ObjectData> selected_object_data_dict;
-	public Dictionary<string,ObjectData>SelectedObjectDataDict
-	{
-		get { return this.selected_object_data_dict; } 
-		set { this.selected_object_data_dict = value; }
-	}
-
-	//追加のオブジェクトが足される数
-	[SerializeField]
-	private int minimum_number_of_object_data = 40;
-	public int MinimumNumberOfObjectData
-	{
-		get { return this.minimum_number_of_object_data; } 
-		set { this.minimum_number_of_object_data = value; }
-	}
-
-
+	
 
 	//パーティクルのデータの管理
 	[SerializeField]
