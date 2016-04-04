@@ -17,6 +17,25 @@ public class GameObjectManager : MonoBehaviour {
 
 	}
 
+
+	public void NavigateCharacter(Vector3 _mouse_pos,GameModel _model,GameObject _hero){
+		Ray ray = Camera.main.ScreenPointToRay(_mouse_pos);
+		RaycastHit hit = new RaycastHit();
+
+		if(Physics.Raycast(ray,out hit)){
+			//GameObject selected_object = hit.collider.gameObject;
+			if(hit.collider.gameObject.GetComponent<TileDataObject>()){
+
+				TileDataObject _obj = hit.collider.gameObject.GetComponent<TileDataObject>();
+				Debug.Log(_obj.POS_X + ":x" + _obj.POS_y + ":y");
+
+			}else{
+				Debug.Log("no tile");
+			}
+
+		}
+	}
+
 	public void SetRotationAngleByTargetPosition(GameObject _char,Vector3 _vec_3){
 		//マウスポインターが何らかのEventSystem関連のUI用のGameObject上になかった場合
 		if(!EventSystem.current.IsPointerOverGameObject()){

@@ -39,17 +39,8 @@ public class GameModel : MonoBehaviour {
 	}
 
 	private static ulong _uniqe_index = 0;
-
-	//トータルのオブジェクトのカウント
-	[SerializeField]
-	private int total_object_count = 0;
-	public int TotalObjectCount
-	{
-		get { return this.total_object_count; } 
-		set { this.total_object_count = value; }
-	}
-		
-	//ゲームタイム
+	
+			//ゲームタイム
 	[SerializeField]
 	private float game_time = 45.0f;
 	public float GameTime
@@ -57,25 +48,6 @@ public class GameModel : MonoBehaviour {
 	    get { return this.game_time; } 
 	    set { this.game_time = value; }
 	}
-	
-	//トータル得点
-	[SerializeField]
-	private int total_point = 0;
-	public int TotalPoint
-	{
-		get { return this.total_point; } 
-		set { this.total_point = value; }
-	}
-
-	//highest total point
-	[SerializeField]
-	private int highest_total_point =0;
-	public int highestTotalPoint
-	{
-	    get { return this.highest_total_point; } 
-	    set { this.highest_total_point = value; }
-	}
-
 
 	//オリジナルjson data
 	[SerializeField]
@@ -112,6 +84,7 @@ public class GameModel : MonoBehaviour {
 		get { return this.object_data_dict;} 
 		set { this.object_data_dict = value;}
 	}
+
 
 	//今インタラクティブかどうか
 	[SerializeField]
@@ -158,6 +131,16 @@ public class GameModel : MonoBehaviour {
 		set { this.isButtonDown = value; }
 	}
 	
+
+
+	//Base Tile data
+	[SerializeField]
+	private List<List<TileDataObject>> _base_tile_list;
+	public List<List<TileDataObject>> BaseTileList
+	{
+	    get { return this._base_tile_list; } 
+	    set { this._base_tile_list = value; }
+	}
 
 	//パーティクルのデータの管理
 	[SerializeField]
@@ -224,7 +207,6 @@ public class GameModel : MonoBehaviour {
 		
 	//初期化
 	public void Init(){
-		total_point = rowCount = columnCount = 0;
 		_uniqe_index = 0;
 	}
 

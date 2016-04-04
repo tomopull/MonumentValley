@@ -36,11 +36,9 @@ public class MainScene : MonoBehaviour {
 
 	//UI Event Handler
 	private UIEventHandler _ui_event_handler;
-
-
+	
 	private Canvas _canvas_game_info;
-
-
+	
 	//Hero
 	private GameObject _hero;
 
@@ -112,21 +110,19 @@ public class MainScene : MonoBehaviour {
 		//CreateStage
 		_stage_manager.CreateStage();
 
-		//InitHero
-		InitCharacter();
-
 		//InitCanvasInfo
 		InitCanvasInfo();
 
 
-
+		//InitHero
+		InitCharacter();
 	}
 
 	/// <summary>
 	/// Inits the character.
 	/// </summary>
 	private void InitCharacter(){
-		_hero = GameObject.Find("Hero");
+		//_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseTileList[0][0].gameObject.transform.position.x,_game_model.BaseTileList[0][0].gameObject.transform.position.y,_game_model.BaseTileList[0][0].gameObject.transform.position.z),Quaternion.identity );
 	}
 
 	private  void InitCanvasInfo(){
@@ -223,9 +219,9 @@ public class MainScene : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0) &&  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
 		//if (  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
 		
-
-			//Debug.Log("press button while playing");
 			_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
+
+			_game_object_manager.NavigateCharacter(Input.mousePosition,_game_model,_hero);
 
 		} else {
 			//do nothing
@@ -235,7 +231,7 @@ public class MainScene : MonoBehaviour {
 
 		//再生終了したパーティクルデータを削除
 		if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
-			//if(_particle_manager != null)_particle_manager.RemoveParticleData ();
+			if(_particle_manager != null)_particle_manager.RemoveParticleData ();
 		}
 
 
