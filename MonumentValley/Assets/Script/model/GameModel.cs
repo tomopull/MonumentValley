@@ -135,8 +135,8 @@ public class GameModel : MonoBehaviour {
 
 	//Base Tile data
 	[SerializeField]
-	private List<List<TileDataObject>> _base_tile_list;
-	public List<List<TileDataObject>> BaseTileList
+	private List<TileDataObject> _base_tile_list;
+	public List<TileDataObject> BaseTileList
 	{
 	    get { return this._base_tile_list; } 
 	    set { this._base_tile_list = value; }

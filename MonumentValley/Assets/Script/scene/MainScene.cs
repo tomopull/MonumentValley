@@ -122,7 +122,7 @@ public class MainScene : MonoBehaviour {
 	/// Inits the character.
 	/// </summary>
 	private void InitCharacter(){
-		//_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseTileList[0][0].gameObject.transform.position.x,_game_model.BaseTileList[0][0].gameObject.transform.position.y,_game_model.BaseTileList[0][0].gameObject.transform.position.z),Quaternion.identity );
+		_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseTileList[0].Obj.transform.position.x,-1,_game_model.BaseTileList[0].Obj.transform.position.z),Quaternion.identity);
 	}
 
 	private  void InitCanvasInfo(){
