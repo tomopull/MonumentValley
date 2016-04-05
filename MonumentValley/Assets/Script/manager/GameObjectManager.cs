@@ -13,8 +13,11 @@ public class GameObjectManager : MonoBehaviour {
 	private Vector3 _next;
 	private bool _isClockwise; // _checkClockwise の結果を保存しておく
 
-	public void Start(){
+	private int floorMask;
 
+	public void Start(){
+		// 床面衝突用のFloorレイヤを取得し、レイヤマスクに変換
+		floorMask = 1 << LayerMask.NameToLayer("Floor");
 	}
 
 
@@ -22,11 +25,13 @@ public class GameObjectManager : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(_mouse_pos);
 		RaycastHit hit = new RaycastHit();
 
-		if(Physics.Raycast(ray,out hit)){
+		if(Physics.Raycast(ray,out hit) ){
+		//if(Physics.Raycast(ray,out hit, 100, floorMask) ){
+			//Block tappedBlock = hit.transform.gameObject.GetComponent<Block>();
+			//Debug.Log(tappedBlock.BlockData.BlockCenter);
 			//GameObject selected_object = hit.collider.gameObject;
-			if(hit.collider.gameObject.GetComponent<TileDataObject>()){
-
-				TileDataObject _obj = hit.collider.gameObject.GetComponent<TileDataObject>();
+			if(hit.collider.gameObject.GetComponent<BlockDataObject>()){
+				BlockDataObject _obj = hit.collider.gameObject.GetComponent<BlockDataObject>();
 				Debug.Log(_obj.POS_X + ":x" + _obj.POS_y + ":y");
 
 			}else{

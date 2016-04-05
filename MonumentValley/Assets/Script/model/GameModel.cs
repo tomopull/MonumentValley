@@ -132,14 +132,21 @@ public class GameModel : MonoBehaviour {
 	}
 	
 
+	[SerializeField]
+	private List<Block> _block_list;
+	public List<Block> BlockList
+	{
+	    get { return this._block_list; } 
+	    set { this._block_list = value; }
+	}
 
 	//Base Tile data
 	[SerializeField]
-	private List<TileDataObject> _base_tile_list;
-	public List<TileDataObject> BaseTileList
+	private List<BlockDataObject> _base_block_list;
+	public List<BlockDataObject> BaseBlockList
 	{
-	    get { return this._base_tile_list; } 
-	    set { this._base_tile_list = value; }
+		get { return this._base_block_list; } 
+		set { this._base_block_list = value; }
 	}
 
 	//パーティクルのデータの管理
