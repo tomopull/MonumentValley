@@ -15,30 +15,13 @@ public class GameObjectManager : MonoBehaviour {
 
 	private int floorMask;
 
+	private GameObject _hero;
+
+	private NavMeshAgent _agent;
+
 	public void Start(){
 		// 床面衝突用のFloorレイヤを取得し、レイヤマスクに変換
 		floorMask = 1 << LayerMask.NameToLayer("Floor");
-	}
-
-
-	public void NavigateCharacter(Vector3 _mouse_pos,GameModel _model,GameObject _hero){
-		Ray ray = Camera.main.ScreenPointToRay(_mouse_pos);
-		RaycastHit hit = new RaycastHit();
-
-		if(Physics.Raycast(ray,out hit) ){
-		//if(Physics.Raycast(ray,out hit, 100, floorMask) ){
-			//Block tappedBlock = hit.transform.gameObject.GetComponent<Block>();
-			//Debug.Log(tappedBlock.BlockData.BlockCenter);
-			//GameObject selected_object = hit.collider.gameObject;
-			if(hit.collider.gameObject.GetComponent<BlockDataObject>()){
-				BlockDataObject _obj = hit.collider.gameObject.GetComponent<BlockDataObject>();
-				Debug.Log(_obj.POS_X + ":x" + _obj.POS_y + ":y");
-
-			}else{
-				Debug.Log("no tile");
-			}
-
-		}
 	}
 
 	public void SetRotationAngleByTargetPosition(GameObject _char,Vector3 _vec_3){
@@ -156,4 +139,33 @@ public class GameObjectManager : MonoBehaviour {
 	}
 }
 
+
+
+
+
+
+
+//public void NavigateCharacter(Vector3 _mouse_pos){
+//	
+//	Ray ray = Camera.main.ScreenPointToRay(_mouse_pos);
+//	RaycastHit hit = new RaycastHit();
+//	
+//	if(Physics.Raycast(ray,out hit) ){
+//		
+//		
+//		
+//		//if(Physics.Raycast(ray,out hit, 100, floorMask) ){
+//		//Block tappedBlock = hit.transform.gameObject.GetComponent<Block>();
+//		//Debug.Log(tappedBlock.BlockData.BlockCenter);
+//		//GameObject selected_object = hit.collider.gameObject;
+//		//			if(hit.collider.gameObject.GetComponent<BlockDataObject>()){
+//		//				BlockDataObject _obj = hit.collider.gameObject.GetComponent<BlockDataObject>();
+//		//				Debug.Log(_obj.POS_X + ":x" + _obj.POS_y + ":y");
+//		//
+//		//			}else{
+//		//				Debug.Log("no tile");
+//		//			}
+//		
+//	}
+//}
 

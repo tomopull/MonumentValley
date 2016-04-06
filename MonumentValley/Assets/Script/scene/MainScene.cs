@@ -46,6 +46,8 @@ public class MainScene : MonoBehaviour {
 
 	private bool time_up = false;
 
+	private NavMeshAgent _agent;
+
 	// Use this for initialization
 	void Start () {
 		//init all managers
@@ -123,6 +125,17 @@ public class MainScene : MonoBehaviour {
 	/// </summary>
 	private void InitCharacter(){
 		_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseBlockList[0].Obj.transform.position.x,-1,_game_model.BaseBlockList[0].Obj.transform.position.z),Quaternion.identity);
+		_agent = _hero.GetComponent<NavMeshAgent>();
+	}
+
+	public void NavigateCharacter(Vector3 _mouse_pos){
+		
+		Ray ray = Camera.main.ScreenPointToRay(_mouse_pos);
+		RaycastHit hit = new RaycastHit();
+		
+		if(Physics.Raycast(ray,out hit) ){
+			_agent.SetDestination(hit.point);
+		}
 	}
 
 	private  void InitCanvasInfo(){
@@ -221,7 +234,7 @@ public class MainScene : MonoBehaviour {
 		
 			_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
 
-			_game_object_manager.NavigateCharacter(Input.mousePosition,_game_model,_hero);
+			NavigateCharacter(Input.mousePosition);
 
 		} else {
 			//do nothing
