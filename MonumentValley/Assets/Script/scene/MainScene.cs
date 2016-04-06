@@ -48,6 +48,8 @@ public class MainScene : MonoBehaviour {
 
 	private NavMeshAgent _agent;
 
+	private Animator _animator;
+
 	// Use this for initialization
 	void Start () {
 		//init all managers
@@ -126,15 +128,28 @@ public class MainScene : MonoBehaviour {
 	private void InitCharacter(){
 		_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseBlockList[0].Obj.transform.position.x,-1,_game_model.BaseBlockList[0].Obj.transform.position.z),Quaternion.identity);
 		_agent = _hero.GetComponent<NavMeshAgent>();
+		_animator = GameObject.Find("Hero/SD_unitychan_humanoid").GetComponent<Animator>();
 	}
 
-	public void NavigateCharacter(Vector3 _mouse_pos){
+	public void NavigateCharacter(){
 		
-		Ray ray = Camera.main.ScreenPointToRay(_mouse_pos);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit = new RaycastHit();
-		
+
+		// "Run"アニメーションに遷移
 		if(Physics.Raycast(ray,out hit) ){
 			_agent.SetDestination(hit.point);
+			_animator.SetBool("is_running",true);
+			Debug.Log("アニメーションに遷移");
+			Debug.Log(Vector3.Distance(hit.point, Camera.main.ScreenToWorldPoint(_hero.transform.position)));
+		}
+
+
+		// 目的地とプレイヤーとの距離が1以下になったら、
+		if(Vector3.Distance(hit.point, _hero.transform.position)  < 1.0f){
+			// "Run"アニメーションから抜け出す
+			_animator.SetBool("is_running",false);
+			Debug.Log("アニメーションから抜け出す");
 		}
 	}
 
@@ -234,7 +249,8 @@ public class MainScene : MonoBehaviour {
 		
 			_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
 
-			NavigateCharacter(Input.mousePosition);
+			NavigateCharacter();
+
 
 		} else {
 			//do nothing
