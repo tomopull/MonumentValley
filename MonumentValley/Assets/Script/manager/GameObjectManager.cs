@@ -34,7 +34,7 @@ public class GameObjectManager : MonoBehaviour {
 			Vector3 diff = Input.mousePosition - selfScreenPoint;
 			float angle = Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
 			float final_angle = angle -90f;
-			_char.transform.eulerAngles = new Vector3(0,-final_angle,0);
+			_char.transform.eulerAngles = new Vector3(0,final_angle,0);
 
 //			if(Physics.Raycast(ray,out hit)){
 //				string selected = hit.collider.gameObject.name;

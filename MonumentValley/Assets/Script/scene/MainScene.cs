@@ -228,8 +228,6 @@ public class MainScene : MonoBehaviour {
 		//ゲームプレイ時間中にボタンをダウンしていたら、していなかったら
 		if (Input.GetMouseButtonDown(0) &&  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
 		
-			_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
-
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			hit = new RaycastHit();
 			
@@ -237,7 +235,7 @@ public class MainScene : MonoBehaviour {
 			if(Physics.Raycast(ray,out hit) ){
 				_agent.SetDestination(hit.point);
 				_animator.SetBool("is_running",true);
-				Debug.Log("アニメーションに遷移");
+				//Debug.Log("アニメーションに遷移");
 				Debug.Log(Vector3.Distance(hit.point, transform.position) );
 			}
 
@@ -247,13 +245,15 @@ public class MainScene : MonoBehaviour {
 		if(Vector3.Distance(hit.point,_hero.transform.position )  < 0.1f){
 			// "Run"アニメーションから抜け出す
 			_animator.SetBool("is_running",false);
-			Debug.Log("アニメーションから抜け出す");
+			//Debug.Log("アニメーションから抜け出す");
 		}
 		
 		//再生終了したパーティクルデータを削除
 		if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
 			if(_particle_manager != null)_particle_manager.RemoveParticleData ();
 		}
+
+		_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
 		
 	
 	}
