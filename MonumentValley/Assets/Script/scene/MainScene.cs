@@ -53,7 +53,6 @@ public class MainScene : MonoBehaviour {
 
 	private Animator _animator;
 
-
 	// Use this for initialization
 	void Start () {
 		//init all managers
@@ -120,8 +119,7 @@ public class MainScene : MonoBehaviour {
 
 		//InitCanvasInfo
 		InitCanvasInfo();
-
-
+		
 		//InitHero
 		InitCharacter();
 	}
@@ -224,11 +222,12 @@ public class MainScene : MonoBehaviour {
 
 			}
 		}
-
+		
 		//ゲームプレイ時間中にボタンをダウンしていたら、していなかったら
 		if (Input.GetMouseButtonDown(0) &&  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
 		
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
 			hit = new RaycastHit();
 			
 			// "Run"アニメーションに遷移
@@ -252,8 +251,9 @@ public class MainScene : MonoBehaviour {
 		if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
 			if(_particle_manager != null)_particle_manager.RemoveParticleData ();
 		}
-
-		_game_object_manager.SetRotationAngleByTargetPosition(_hero,Input.mousePosition);
+		
+		
+		_game_object_manager.SetRotationAngleByTargetPosition(_hero, _animator, Input.mousePosition);
 		
 	
 	}

@@ -24,24 +24,26 @@ public class GameObjectManager : MonoBehaviour {
 		floorMask = 1 << LayerMask.NameToLayer("Floor");
 	}
 
-	public void SetRotationAngleByTargetPosition(GameObject _char,Vector3 _vec_3){
+	public void SetRotationAngleByTargetPosition(GameObject _char, Animator _animator,  Vector3 _vec_3){
 		//マウスポインターが何らかのEventSystem関連のUI用のGameObject上になかった場合
 		if(!EventSystem.current.IsPointerOverGameObject()){
 
-			//Animator _animator = _char.GetComponent<Animator>();
-			Vector3 selfScreenPoint = Camera.main.WorldToScreenPoint(_char.transform.position);
-			//Vector3 selfScreenPoint = _char.transform.position;
-			Vector3 diff = Input.mousePosition - selfScreenPoint;
-			float angle = Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
-			float final_angle = angle -90f;
-			_char.transform.eulerAngles = new Vector3(0,final_angle,0);
 
-//			if(Physics.Raycast(ray,out hit)){
-//				string selected = hit.collider.gameObject.name;
-//				Quaternion _rotate = Quaternion.LookRotation((Input.mousePosition - selfScreenPoint)* Mathf.Deg2Rad);
-//				_rotate.x = _rotate.z = 0;
-//				_char.transform.rotation = _rotate;
-//			}
+			Vector3 selfScreenPoint = Camera.main.WorldToScreenPoint(_char.transform.position);
+
+			Vector3 diff = Input.mousePosition - selfScreenPoint;
+
+			float angle = Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
+
+			float final_angle = angle -90f;
+
+			_animator.transform.eulerAngles = new Vector3(0,-final_angle,0);
+			//_animator.transform.eulerAngles = new Vector3(0,-final_angle,0);
+			
+			//_char.transform.eulerAngles = new Vector3(0,-final_angle,0);
+
+			Debug.Log(final_angle);
+		
 
 
 
@@ -94,6 +96,25 @@ public class GameObjectManager : MonoBehaviour {
 		}
 
 	}
+
+
+
+//	public void SetRotationAngleByTargetPosition(GameObject _char,Vector3 _vec_3){
+//		//マウスポインターが何らかのEventSystem関連のUI用のGameObject上になかった場合
+//		if(!EventSystem.current.IsPointerOverGameObject()){
+//			Vector3 selfScreenPoint = Camera.main.WorldToScreenPoint(_char.transform.position);
+//			Vector3 diff = Input.mousePosition - selfScreenPoint;
+//			float angle = Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
+//			float final_angle = angle -90f;
+//			_char.transform.eulerAngles = new Vector3(0,final_angle,0);
+//
+//		}
+//		
+//	}
+
+
+
+
 
 	private bool _checkClockwise(float current, float target)
 	{
