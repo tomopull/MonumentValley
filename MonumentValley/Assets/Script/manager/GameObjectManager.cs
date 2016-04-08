@@ -37,7 +37,7 @@ public class GameObjectManager : MonoBehaviour {
 
 			float final_angle = angle -90f;
 
-			_animator.transform.eulerAngles = new Vector3(0,-final_angle,0);
+			_animator.transform.eulerAngles = new Vector3(0,-final_angle* 0.8f,0);
 			//_animator.transform.eulerAngles = new Vector3(0,-final_angle,0);
 			
 			//_char.transform.eulerAngles = new Vector3(0,-final_angle,0);

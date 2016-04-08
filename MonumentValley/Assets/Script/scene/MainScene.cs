@@ -128,7 +128,7 @@ public class MainScene : MonoBehaviour {
 	/// Inits the character.
 	/// </summary>
 	private void InitCharacter(){
-		_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseBlockList[0].Obj.transform.position.x,-1,_game_model.BaseBlockList[0].Obj.transform.position.z),Quaternion.identity);
+		_hero = Util.InstantiateUtil(_game_model,"Hero",new Vector3(_game_model.BaseBlockList[1].Obj.transform.position.x,-1,_game_model.BaseBlockList[1].Obj.transform.position.z),Quaternion.identity);
 		_agent = _hero.GetComponent<NavMeshAgent>();
 		_animator = GameObject.Find("Hero/SD_unitychan_humanoid").GetComponent<Animator>();
 	}
@@ -251,15 +251,10 @@ public class MainScene : MonoBehaviour {
 		if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
 			if(_particle_manager != null)_particle_manager.RemoveParticleData ();
 		}
-		
-		
-		_game_object_manager.SetRotationAngleByTargetPosition(_hero, _animator, Input.mousePosition);
-		
+
+		_game_object_manager.SetRotationAngleByTargetPosition(_hero, _animator, Input.mousePosition);		
 	
 	}
-
-
-
 
 }
 
