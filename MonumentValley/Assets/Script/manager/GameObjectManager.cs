@@ -25,7 +25,9 @@ public class GameObjectManager : MonoBehaviour {
 	private float cameraDif;
 	private Vector3 worldpos;
 	//--------------------------------------------
-	
+
+	public float speed = 1.0f;
+	private Vector3 newPos;
 
 	public void Start(){
 		// 床面衝突用のFloorレイヤを取得し、レイヤマスクに変換
@@ -34,20 +36,43 @@ public class GameObjectManager : MonoBehaviour {
 
 
 	public void SetRotationAngleByTargetPosition(GameObject _char, Animator _animator,  Vector3 _vec_3){
-
+		
 		//マウスポインターが何らかのEventSystem関連のUI用のGameObject上になかった場合
 		if(!EventSystem.current.IsPointerOverGameObject()){
 
-			Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
-			lookPos = lookPos - _char.transform.position;
-			float angle = Mathf.Atan2(lookPos.z, lookPos.x) * Mathf.Rad2Deg;
-			float final_angle = angle -90f;
-			_char.transform.rotation = Quaternion.AngleAxis(final_angle, Vector3.down);
-			Debug.Log(_char.transform.rotation);
-		}
+			RaycastHit hit;
 
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+
+			if (Physics.Raycast (ray, out hit)) 
+			{
+				//newPos = new Vector3 (hit.point.x, 2.2f, hit.point.z);
+				newPos = new Vector3 (hit.point.x, hit.point.y, hit.point.z);
+			}
+		
+			//_char.transform.position = Vector3.Lerp (_char.transform.position, newPos, Time.deltaTime * speed);
+			//_char.transform.LookAt(newPos);
+			_char.transform.rotation = Quaternion.LookRotation(newPos - _char.transform.position);
+
+		}
+		
 	}
+
+//	public void SetRotationAngleByTargetPosition(GameObject _char, Animator _animator,  Vector3 _vec_3){
+//
+//		//マウスポインターが何らかのEventSystem関連のUI用のGameObject上になかった場合
+//		if(!EventSystem.current.IsPointerOverGameObject()){
+//
+//			Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+//			Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
+//			lookPos = lookPos - _char.transform.position;
+//			float angle = Mathf.Atan2(lookPos.z, lookPos.x) * Mathf.Rad2Deg;
+//			//float final_angle = angle -90f;
+//			_char.transform.rotation = Quaternion.AngleAxis(angle, Vector3.down);
+//			Debug.Log(angle);
+//		}
+//
+//	}
 
 //	public void SetRotationAngleByTargetPosition(GameObject _char, Animator _animator,  Vector3 _vec_3){
 //	
