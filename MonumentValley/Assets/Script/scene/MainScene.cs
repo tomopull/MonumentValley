@@ -53,6 +53,16 @@ public class MainScene : MonoBehaviour {
 
 	private Animator _animator;
 
+
+	Button _btn_rotate_left;
+
+	Button _btn_rotate_right;
+
+	CameraData _camera_data;
+	CameraZoom _camera_zoom;
+	CameraAdjustSelf _camera_adjustSelf;
+	CameraRotate _camera_rotate;
+
 	// Use this for initialization
 	void Start () {
 		//init all managers
@@ -122,7 +132,48 @@ public class MainScene : MonoBehaviour {
 		
 		//InitHero
 		InitCharacter();
+
+		//Init InitInteractive();
+		InitInteractive();
+
+		//camera function settings
+		InitCameraFunction();
 	}
+
+	private void InitInteractive(){
+
+		_btn_rotate_left = Util.FindButtonComponentUtil("CanvasGameInfo/RotateLeft");
+		_btn_rotate_right = Util.FindButtonComponentUtil("CanvasGameInfo/RotateRight");
+
+		Util.SetButtonEvent(_btn_rotate_left.gameObject,RotateLeftStart,EventTriggerType.PointerDown);
+
+		Util.SetButtonEvent(_btn_rotate_right.gameObject,RotateRightStart,EventTriggerType.PointerDown);
+	}
+
+	private void InitCameraFunction(){
+		_camera_data = GameObject.Find("MyCamera").GetComponent<CameraData>();
+		_camera_rotate = GameObject.Find("MyCamera").GetComponent<CameraRotate>();
+		_camera_zoom = GameObject.Find("MyCamera").GetComponent<CameraZoom>();
+		_camera_adjustSelf = GameObject.Find("MyCamera").GetComponent<CameraAdjustSelf>();
+	}
+
+	private void RotateLeftStart(BaseEventData _base_event_data){
+		_camera_data.rotation += 5f;
+	}
+
+	private void RotateLeftEnd(BaseEventData _base_event_data){
+		Debug.Log("rotate left end");	
+	}
+
+	private void RotateRightStart(BaseEventData _base_event_data){
+		_camera_data.rotation -= 5f;
+	}
+	
+	private void RotateRightEnd(BaseEventData _base_event_data){
+		Debug.Log("rotate right end");	
+	}
+
+
 
 	/// <summary>
 	/// Inits the character.
@@ -226,35 +277,42 @@ public class MainScene : MonoBehaviour {
 		//ゲームプレイ時間中にボタンをダウンしていたら、していなかったら
 		if (Input.GetMouseButtonDown(0) &&  _game_model.NowState == _game_state.GAME_PLAY_STATE) {
 		
-			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if(_hero != null){
 
-			hit = new RaycastHit();
+				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+				hit = new RaycastHit();
 			
-			// "Run"アニメーションに遷移
-			if(Physics.Raycast(ray,out hit) ){
-				_agent.SetDestination(hit.point);
-				_animator.SetBool("is_running",true);
-				//Debug.Log("アニメーションに遷移");
-				Debug.Log(Vector3.Distance(hit.point, transform.position) );
+				// "Run"アニメーションに遷移
+				if(Physics.Raycast(ray,out hit) ){
+					_agent.SetDestination(hit.point);
+					_animator.SetBool("is_running",true);
+					//Debug.Log("アニメーションに遷移");
+					Debug.Log(Vector3.Distance(hit.point, transform.position) );
+				}
+
+				//再生終了したパーティクルデータを削除
+				if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
+					if(_particle_manager != null)_particle_manager.RemoveParticleData ();
+				}
+
 			}
 
 		}
 
-		// 目的地とプレイヤーとの距離が1以下になったら、
-		if(Vector3.Distance(hit.point,_hero.transform.position )  < 0.1f){
-			// "Run"アニメーションから抜け出す
-			_animator.SetBool("is_running",false);
-			//Debug.Log("アニメーションから抜け出す");
-		}
-		
-		//再生終了したパーティクルデータを削除
-		if(_game_model.NowState == _game_state.GAME_PLAY_STATE){
-			if(_particle_manager != null)_particle_manager.RemoveParticleData ();
-		}
+		if(_hero!=null){
+			// 目的地とプレイヤーとの距離が1以下になったら、
+			if(Vector3.Distance(hit.point,_hero.transform.position )  < 0.1f){
+				// "Run"アニメーションから抜け出す
+				_animator.SetBool("is_running",false);
+				//Debug.Log("アニメーションから抜け出す");
+			}
 
-		_game_object_manager.SetRotationAngleByTargetPosition(_hero, _animator, Input.mousePosition);		
-	
+			_game_object_manager.SetRotationAngleByTargetPosition(_hero, _animator, Input.mousePosition);
+
+		}	
 	}
+
 
 }
 
